@@ -11,7 +11,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-          <app-todos></app-todos>
+          <app-todos (todoSelected)="selectTodo($event)"></app-todos>
+      </div>
+      <div class="col-md-9">
+          <app-todo [todo]="selectedTodo"></app-todo>
       </div>
     </div>
   </div>

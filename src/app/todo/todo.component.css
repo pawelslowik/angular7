@@ -1,3 +1,5 @@
-todo {
-    border: 2px solid dodgerblue
+.todo {
+    border: 2px solid dodgerblue;
+    text-align: left;
+    padding: 10px;
 }

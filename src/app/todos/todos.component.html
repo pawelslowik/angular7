@@ -1,4 +1,6 @@
 <div>
   <h3>Todos:</h3>
-  <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
+  <ul>
+    <li *ngFor="let todo of todos" (mouseenter)=selectTodo(todo) (mouseleave)=selectTodo(null)>{{todo.title}} </li>
+  </ul>
 </div>

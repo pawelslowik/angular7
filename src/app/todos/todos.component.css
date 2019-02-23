@@ -1,0 +1,17 @@
+ul {
+    text-align: left
+}
+
+li {
+    font-size: medium;
+    cursor: pointer;
+}
+
+li:hover {
+    font-size: larger;
+    color: dodgerblue
+}
+
+h3 {
+    text-align: left
+}
