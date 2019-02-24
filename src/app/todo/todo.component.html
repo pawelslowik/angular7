@@ -4,8 +4,32 @@
   'todo-completed': todo.status === 'completed',
   'todo-started': todo.status === 'started'
 }">
-  <p>Title: {{todo.title}}</p>
-  <p>Status: {{todo.status}}</p>
-  <p>Description: {{todo.description}}</p>
-  <p>End date: {{todo.endDate | date}}</p>
+  <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
+      </div>
+      <input [disabled]="!editMode" type="text" class="form-control" [(ngModel)]="todo.title">
+  </div>
+  <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
+      </div>
+      <input [disabled]="true" type="text" class="form-control" [(ngModel)]="todo.status">
+  </div>
+  <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
+      </div>
+      <input [disabled]="!editMode" type="text" class="form-control" [(ngModel)]="todo.description">
+  </div>
+  <div class="input-group input-group-sm mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">End date</span>
+      </div>
+      <input [disabled]="!editMode" type="date" class="form-control" [ngModel] ="todo.endDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.endDate = $event">
+  </div>
+  <div *ngIf="editMode">
+    <button class="btn btn-primary todo-button" (click)="save(todo)">Save</button>
+    <button class="btn btn-danger todo-button" (click)="cancel()">Cancel</button>
+  </div>
 </div>

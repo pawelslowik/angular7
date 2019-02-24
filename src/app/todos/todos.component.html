@@ -7,24 +7,24 @@
       <th>Actions</th>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of todos; let i = index" (mouseenter)=selectTodo(todo) (mouseleave)=selectTodo(null)
+      <tr *ngFor="let todo of todos; let i = index" (mouseenter)="selectTodo(todo.value)" (mouseleave)="selectTodo(null)"
         [ngClass]="{
-          'todo-not-started': (! todo.status || todo.status === 'not started'),
-          'todo-canceled': todo.status === 'canceled',
-          'todo-completed': todo.status === 'completed',
-          'todo-started': todo.status === 'started'
+          'todo-not-started': (! todo.value.status || todo.value.status === 'not started'),
+          'todo-canceled': todo.value.status === 'canceled',
+          'todo-completed': todo.value.status === 'completed',
+          'todo-started': todo.value.status === 'started'
         }">
         <th>{{i + 1}}</th>
         <td class="status-icon"><span class="fa" [ngClass]="{
-          'fa-pause': (! todo.status || todo.status === 'not started'),
-          'fa-ban': todo.status === 'canceled',
-          'fa-check': todo.status === 'completed',
-          'fa-repeat': todo.status === 'started'
+          'fa-pause': (! todo.value.status || todo.value.status === 'not started'),
+          'fa-ban': todo.value.status === 'canceled',
+          'fa-check': todo.value.status === 'completed',
+          'fa-repeat': todo.value.status === 'started'
         }"></span></td>
-        <td>{{todo.title}}</td>
+        <td>{{todo.value.title}}</td>
         <td>
           <span>
-            <div class="fa fa-trash" (click)="deleteTodo(todo)"></div>
+            <div class="fa fa-trash" (click)="deleteTodo(todo.prop)"></div>
           </span>
         </td>
       </tr>

@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Todo } from './shared/model/todo';
-import { TodoActionEvent } from './shared/model/todo-action-event';
+import { TodoActionEvent, EventType } from './shared/model/todo-action-event';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +18,8 @@ export class AppComponent {
 
   onTodoAction(event: TodoActionEvent) {
     this.todoActionEvent.emit(event);
+    if (event.eventType === EventType.ADD) {
+      this.selectedTodo = new Todo();
+    }
   }
 }

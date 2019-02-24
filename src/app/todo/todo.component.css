@@ -19,3 +19,7 @@
 .todo-completed {
     border-color: mediumseagreen
 }
+
+.todo-button {
+    margin-right: 5px
+}

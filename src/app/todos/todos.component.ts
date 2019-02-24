@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Todo } from '../shared/model/todo';
 import { HttpService } from '../shared/service/http.service';
 import { TodoActionEvent, EventType } from '../shared/model/todo-action-event';
+import { map } from 'lodash';
 
 @Component({
   selector: 'app-todos',
@@ -28,7 +29,7 @@ export class TodosComponent implements OnInit {
 
   refreshTodos() {
     this.httpService.getTodos().subscribe(
-      todos => this.todos = todos,
+      todos => this.todos = map(todos, (value, prop) => ({ prop, value })),
       error => console.log(error)
     );
   }
@@ -37,7 +38,10 @@ export class TodosComponent implements OnInit {
     this.todoSelected.emit(todo);
   }
 
-  deleteTodo(todo: Todo) {
-    console.log('deleted=' + JSON.stringify(todo));
+  deleteTodo(id: string) {
+    this.httpService.deleteTodo(id).subscribe(
+      response => this.refreshTodos(),
+      error => console.log(error)
+    );
   }
 }
