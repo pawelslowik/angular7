@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Todo, TODO_LIST } from '../shared/models/todo';
+import { Todo } from '../shared/model/todo';
+import { HttpService } from '../shared/service/http.service';
 
 @Component({
   selector: 'app-todos',
@@ -10,11 +11,15 @@ export class TodosComponent implements OnInit {
 
   @Output() todoSelected: EventEmitter<Todo> = new EventEmitter();
 
-  todos = TODO_LIST;
+  todos = [];
 
-  constructor() { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.httpService.getTodos().subscribe(
+      todos => this.todos = todos,
+      error => console.log(error)
+    );
   }
 
   selectTodo(todo: Todo) {

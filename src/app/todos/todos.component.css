@@ -1,9 +1,13 @@
 th, tr {
-    text-align: left
+    text-align: center
 }
 
 tr {
     cursor: pointer;
+}
+
+.status-icon {
+    text-align: center
 }
 
 .todo-canceled {

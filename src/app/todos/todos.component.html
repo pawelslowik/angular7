@@ -2,8 +2,9 @@
   <table class="table table-hover">
     <thead>
       <th>#</th>
+      <th>Status</th>
       <th>Todo</th>
-      <th></th>
+      
     </thead>
     <tbody>
       <tr *ngFor="let todo of todos; let i = index" (mouseenter)=selectTodo(todo) (mouseleave)=selectTodo(null)
@@ -14,13 +15,14 @@
           'todo-started': todo.status === 'started'
         }">
         <th>{{i + 1}}</th>
-        <td>{{todo.title}}</td>
-        <td><span class="fa" [ngClass]="{
+        <td class="status-icon"><span class="fa" [ngClass]="{
           'fa-pause': (! todo.status || todo.status === 'not started'),
           'fa-ban': todo.status === 'canceled',
           'fa-check': todo.status === 'completed',
           'fa-repeat': todo.status === 'started'
         }"></span></td>
+        <td>{{todo.title}}</td>
+        
       </tr>
     </tbody>
   </table>
