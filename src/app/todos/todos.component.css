@@ -1,17 +1,23 @@
-ul {
+th, tr {
     text-align: left
 }
 
-li {
-    font-size: medium;
+tr {
     cursor: pointer;
 }
 
-li:hover {
-    font-size: larger;
-    color: dodgerblue
+.todo-canceled {
+    background-color:lightcoral
 }
 
-h3 {
-    text-align: left
+.todo-not-started {
+    background-color: lightblue
+}
+
+.todo-started {
+    background-color: yellow
+}
+
+.todo-completed {
+    background-color: mediumseagreen
 }

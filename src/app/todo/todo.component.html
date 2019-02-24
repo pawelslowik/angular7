@@ -1,4 +1,9 @@
-<div *ngIf="todo" class="todo">
+<div *ngIf="todo" class="todo" [ngClass]="{
+  'todo-not-started': (! todo.status || todo.status === 'not started'),
+  'todo-canceled': todo.status === 'canceled',
+  'todo-completed': todo.status === 'completed',
+  'todo-started': todo.status === 'started'
+}">
   <p>Title: {{todo.title}}</p>
   <p>Description: {{todo.description}}</p>
   <p>End date: {{todo.endDate | date}}</p>

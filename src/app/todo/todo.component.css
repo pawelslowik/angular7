@@ -1,5 +1,21 @@
 .todo {
-    border: 2px solid dodgerblue;
+    border: 2px solid;
     text-align: left;
     padding: 10px;
+}
+
+.todo-canceled {
+    border-color:lightcoral
+}
+
+.todo-not-started {
+    border-color: lightblue
+}
+
+.todo-started {
+    border-color: yellow
+}
+
+.todo-completed {
+    border-color: mediumseagreen
 }
