@@ -6,10 +6,6 @@ tr {
     cursor: pointer;
 }
 
-.status-icon {
-    text-align: center
-}
-
 .todo-canceled {
     background-color:lightcoral
 }

@@ -6,12 +6,14 @@ import { TodoComponent } from './todo/todo.component';
 import { TodosComponent } from './todos/todos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './shared/service/http.service';
+import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
-    TodosComponent
+    TodosComponent,
+    TodoActionButtonsComponent
   ],
   imports: [
     BrowserModule,

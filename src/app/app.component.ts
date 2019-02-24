@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Todo } from './shared/model/todo';
+import { TodoActionEvent } from './shared/model/todo-action-event';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,13 @@ import { Todo } from './shared/model/todo';
 export class AppComponent {
   title = 'angular-todo-app';
   selectedTodo: Todo;
+  @Output() todoActionEvent: EventEmitter<TodoActionEvent> = new EventEmitter();
 
-  selectTodo(todo: Todo) {
+  onTodoSelected(todo: Todo) {
     this.selectedTodo = todo;
+  }
+
+  onTodoAction(event: TodoActionEvent) {
+    this.todoActionEvent.emit(event);
   }
 }
