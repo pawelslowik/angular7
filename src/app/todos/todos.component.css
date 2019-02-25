@@ -2,10 +2,6 @@ th, tr {
     text-align: center
 }
 
-tr {
-    cursor: pointer;
-}
-
 .todo-canceled {
     background-color:lightcoral
 }
@@ -20,4 +16,8 @@ tr {
 
 .todo-completed {
     background-color: mediumseagreen
+}
+
+.action-icon {
+    cursor: pointer;
 }
