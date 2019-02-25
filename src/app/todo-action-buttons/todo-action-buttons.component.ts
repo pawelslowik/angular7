@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { TodoActionEvent, EventType } from '../shared/model/todo-action-event';
+import { Component, OnInit } from '@angular/core';
+import { EventService } from '../shared/service/event/event.service';
 
 @Component({
   selector: 'app-todo-action-buttons',
@@ -8,18 +8,16 @@ import { TodoActionEvent, EventType } from '../shared/model/todo-action-event';
 })
 export class TodoActionButtonsComponent implements OnInit {
 
-  @Output() todoAction: EventEmitter<TodoActionEvent> = new EventEmitter();
-
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
   }
 
   refreshTodos() {
-    this.todoAction.emit(new TodoActionEvent(EventType.REFRESH));
+    this.eventService.refreshTodos();
   }
 
   addTodo() {
-    this.todoAction.emit(new TodoActionEvent(EventType.ADD));
+    this.eventService.addTodo();
   }
 }

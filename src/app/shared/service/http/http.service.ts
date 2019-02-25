@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Todo } from '../model/todo';
+import { Todo } from '../../model/todo';
 
 const BACKEND_URL = 'https://angular-todo-app-9a208.firebaseio.com/todos';
 

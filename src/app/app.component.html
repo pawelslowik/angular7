@@ -11,17 +11,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <app-todo-action-buttons (todoAction)="onTodoAction($event)"></app-todo-action-buttons>
+        <app-todo-action-buttons></app-todo-action-buttons>
       </div>
       <div class="col-md-8"></div>
     </div>
     <br>
     <div class="row">
       <div class="col-md-4">
-          <app-todos (todoSelected)="onTodoSelected($event)" [todoActionRequested]="todoActionEvent"></app-todos>
+          <app-todos></app-todos>
       </div>
       <div class="col-md-8">
-          <app-todo [todo]="selectedTodo" [todoActionRequested]="todoActionEvent"></app-todo>
+          <app-todo></app-todo>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
 import { TodosComponent } from './todos/todos.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpService } from './shared/service/http.service';
+import { HttpService } from './shared/service/http/http.service';
 import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
 
 @NgModule({

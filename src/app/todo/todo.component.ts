@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Todo } from '../shared/model/todo';
-import { TodoActionEvent, EventType } from '../shared/model/todo-action-event';
-import { HttpService } from '../shared/service/http.service';
+import { EventService } from '../shared/service/event/event.service';
+import { EventType } from '../shared/service/event/todo-action-event';
+import { HttpService } from '../shared/service/http/http.service';
 
 @Component({
   selector: 'app-todo',
@@ -10,15 +11,21 @@ import { HttpService } from '../shared/service/http.service';
 })
 export class TodoComponent implements OnInit {
 
-  @Input() todo: Todo;
-  @Input() todoActionRequested: EventEmitter<TodoActionEvent>;
+  todo: Todo;
   editMode: boolean;
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private eventService: EventService) { }
 
   ngOnInit() {
-    this.todoActionRequested.subscribe(event => {
-      this.editMode = (event.eventType === EventType.ADD);
+    this.eventService.events$.subscribe(event => {
+      if (event.eventType === EventType.ADD) {
+        this.todo = new Todo();
+        this.editMode = true;
+      }
+      if (event.eventType === EventType.SELECT) {
+        this.todo = event.payload;
+        this.editMode = false;
+      }
     });
   }
 
@@ -33,7 +40,10 @@ export class TodoComponent implements OnInit {
 
   save(todo: Todo) {
     this.httpService.saveTodo(todo).subscribe(
-      response => this.reset(),
+      response => {
+        this.reset();
+        this.eventService.refreshTodos();
+      },
       error => console.log(error.statusText)
     );
   }

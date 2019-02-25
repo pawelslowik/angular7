@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { Todo } from '../shared/model/todo';
-import { HttpService } from '../shared/service/http.service';
-import { TodoActionEvent, EventType } from '../shared/model/todo-action-event';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map } from 'lodash';
+import { Todo } from '../shared/model/todo';
+import { EventService } from '../shared/service/event/event.service';
+import { EventType } from '../shared/service/event/todo-action-event';
+import { HttpService } from '../shared/service/http/http.service';
 
 @Component({
   selector: 'app-todos',
@@ -11,16 +12,13 @@ import { map } from 'lodash';
 })
 export class TodosComponent implements OnInit {
 
-  @Output() todoSelected: EventEmitter<Todo> = new EventEmitter();
-  @Input() todoActionRequested: EventEmitter<TodoActionEvent>;
-
   todos = [];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private eventService: EventService) { }
 
   ngOnInit() {
     this.refreshTodos();
-    this.todoActionRequested.subscribe(event => {
+    this.eventService.events$.subscribe(event => {
       switch (event.eventType) {
             case EventType.REFRESH: this.refreshTodos(); break;
         }
@@ -35,7 +33,7 @@ export class TodosComponent implements OnInit {
   }
 
   selectTodo(todo: Todo) {
-    this.todoSelected.emit(todo);
+    this.eventService.selectTodo(todo);
   }
 
   deleteTodo(id: string) {
