@@ -26,4 +26,8 @@ export class EventService {
   selectTodo(todo: Todo) {
     this.events.next(new TodoActionEvent(EventType.SELECT, todo));
   }
+
+  editTodo(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.EDIT, todo));
+  }
 }

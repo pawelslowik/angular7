@@ -3,6 +3,8 @@ import { Todo } from '../shared/model/todo';
 import { EventService } from '../shared/service/event/event.service';
 import { EventType } from '../shared/service/event/todo-action-event';
 import { HttpService } from '../shared/service/http/http.service';
+import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
@@ -12,21 +14,24 @@ import { HttpService } from '../shared/service/http/http.service';
 export class TodoComponent implements OnInit {
 
   todo: Todo;
-  editMode: boolean;
+  private handledEvent: EventType;
 
   constructor(private httpService: HttpService, private eventService: EventService) { }
 
   ngOnInit() {
     this.eventService.events$.subscribe(event => {
+      this.handledEvent = event.eventType;
       if (event.eventType === EventType.ADD) {
         this.todo = new Todo();
-        this.editMode = true;
       }
-      if (event.eventType === EventType.SELECT) {
+      if (event.eventType === EventType.SELECT || event.eventType === EventType.EDIT) {
         this.todo = event.payload;
-        this.editMode = false;
       }
     });
+  }
+
+  isInputMode(): boolean {
+    return this.handledEvent === EventType.ADD || this.handledEvent === EventType.EDIT;
   }
 
   cancel() {
@@ -35,11 +40,19 @@ export class TodoComponent implements OnInit {
 
   reset() {
     this.todo = null;
-    this.editMode = false;
   }
 
   save(todo: Todo) {
-    this.httpService.saveTodo(todo).subscribe(
+    if (this.handledEvent === EventType.ADD) {
+      this.handleResult(this.httpService.createTodo(todo));
+    }
+    if (this.handledEvent === EventType.EDIT && todo instanceof TodoIdWrapper) {
+      this.handleResult(this.httpService.editTodo(todo.id, todo));
+    }
+  }
+
+  handleResult(observableResult: Observable<Todo>) {
+    observableResult.subscribe(
       response => {
         this.reset();
         this.eventService.refreshTodos();

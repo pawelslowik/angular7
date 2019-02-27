@@ -3,7 +3,8 @@ import { Todo } from '../../model/todo';
 export enum EventType {
     ADD,
     REFRESH,
-    SELECT
+    SELECT,
+    EDIT
 }
 
 export class TodoActionEvent {

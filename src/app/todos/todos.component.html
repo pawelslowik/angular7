@@ -7,7 +7,7 @@
       <th>Actions</th>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of todos; let i = index" (mouseenter)="selectTodo(todo.value)" (mouseleave)="selectTodo(null)"
+      <tr *ngFor="let todo of todos; let i = index" (mouseenter)="selectTodo(todo.value)"
         [ngClass]="{
           'todo-not-started': (! todo.value.status || todo.value.status === 'not started'),
           'todo-canceled': todo.value.status === 'canceled',
@@ -25,6 +25,7 @@
         <td>
           <span>
             <div class="fa fa-trash action-icon" (click)="deleteTodo(todo.prop)"></div>
+            <div class="fa fa-pencil action-icon" (click)="editTodo(todo.prop, todo.value)"></div>
           </span>
         </td>
       </tr>

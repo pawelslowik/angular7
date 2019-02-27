@@ -20,4 +20,5 @@ th, tr {
 
 .action-icon {
     cursor: pointer;
+    margin-right: 10px;
 }

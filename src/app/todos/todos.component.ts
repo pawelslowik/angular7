@@ -4,6 +4,7 @@ import { Todo } from '../shared/model/todo';
 import { EventService } from '../shared/service/event/event.service';
 import { EventType } from '../shared/service/event/todo-action-event';
 import { HttpService } from '../shared/service/http/http.service';
+import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
 
 @Component({
   selector: 'app-todos',
@@ -41,5 +42,9 @@ export class TodosComponent implements OnInit {
       response => this.refreshTodos(),
       error => console.log(error)
     );
+  }
+
+  editTodo(id: string, todo: Todo) {
+    this.eventService.editTodo(new TodoIdWrapper(id, todo));
   }
 }

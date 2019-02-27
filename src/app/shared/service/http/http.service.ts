@@ -14,11 +14,15 @@ export class HttpService {
     return this.http.get<Todo[]>(BACKEND_URL + '.json');
   }
 
-  public saveTodo(todo: Todo) {
+  public createTodo(todo: Todo) {
     return this.http.post<Todo>(BACKEND_URL + '.json', todo);
   }
 
   public deleteTodo(id: string) {
     return this.http.delete(BACKEND_URL + '/' + id + '.json');
+  }
+
+  editTodo(id: string, todo: Todo) {
+    return this.http.put<Todo>(BACKEND_URL + '/' + id + '.json', todo);
   }
 }

@@ -8,7 +8,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
       </div>
-      <input required [disabled]="!editMode" type="text" class="form-control" [(ngModel)]="todo.title" #title="ngModel">
+      <input required [disabled]="!isInputMode()" type="text" class="form-control" [(ngModel)]="todo.title" #title="ngModel">
   </div>
   <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
@@ -20,16 +20,16 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
       </div>
-      <input [disabled]="!editMode" type="text" class="form-control" [(ngModel)]="todo.description">
+      <input [disabled]="!isInputMode()" type="text" class="form-control" [(ngModel)]="todo.description">
   </div>
   <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-sm">End date</span>
       </div>
-      <input required [disabled]="!editMode" type="date" class="form-control" [ngModel] ="todo.endDate | date:'yyyy-MM-dd'"
+      <input required [disabled]="!isInputMode()" type="date" class="form-control" [ngModel] ="todo.endDate | date:'yyyy-MM-dd'"
        (ngModelChange)="todo.endDate = $event" #endDate="ngModel">
   </div>
-  <div *ngIf="editMode">
+  <div *ngIf="isInputMode()">
     <button [disabled]="title.invalid || status.invalid || endDate.invalid" class="btn btn-primary todo-button" (click)="save(todo)">Save</button>
     <button class="btn btn-danger todo-button" (click)="cancel()">Cancel</button>
   </div>
