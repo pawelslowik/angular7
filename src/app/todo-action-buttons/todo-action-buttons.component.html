@@ -1,8 +1,13 @@
-<div>
-    <button class="btn btn-primary float-left todo-action-button" (click)="addTodo()">
-        <span class="fa fa-plus"></span> Add
-    </button>
-    <button class="btn btn-primary float-left todo-action-button" (click)="refreshTodos()">
-        <span class="fa fa-refresh"></span> Reload
-    </button>
+<div class="input-group">
+        <button class="btn btn-primary todo-action-item" (click)="addTodo()">
+                <span class="fa fa-plus"></span> Add
+        </button>
+        <button class="btn btn-primary todo-action-item" (click)="refreshTodos()">
+                <span class="fa fa-refresh"></span> Reload
+        </button>
+        <input class="form-control todo-action-item" type="text" placeholder="Find..." [(ngModel)]="filterValue"
+                (keyup)="filterTodos()">
+        <div class="input-group-append">
+                <button class="btn btn-primary todo-action-item" type="button" (click)="clearFilter()">Clear</button>
+        </div>
 </div>

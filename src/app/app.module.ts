@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './shared/service/http/http.service';
 import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
 import { StatusBannerComponent } from './status-banner/status-banner.component';
+import { TodoFilterPipe } from './shared/pipe/todo-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { StatusBannerComponent } from './status-banner/status-banner.component';
     TodoComponent,
     TodosComponent,
     TodoActionButtonsComponent,
-    StatusBannerComponent
+    StatusBannerComponent,
+    TodoFilterPipe
   ],
   imports: [
     BrowserModule,

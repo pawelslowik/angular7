@@ -7,7 +7,7 @@
       <th>Actions</th>
     </thead>
     <tbody>
-      <tr *ngFor="let todo of todos; let i = index" (mouseenter)="selectTodo(todo.value)" (mouseleave)="selectTodo(null)"
+      <tr *ngFor="let todo of todos | todoFilter:todoFilterValue; let i = index" (mouseenter)="selectTodo(todo.value)" (mouseleave)="selectTodo(null)"
         [ngClass]="{
           'todo-not-started': (! todo.value.status || todo.value.status === 'not started'),
           'todo-canceled': todo.value.status === 'canceled',

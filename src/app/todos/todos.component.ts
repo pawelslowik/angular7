@@ -6,6 +6,7 @@ import { EventType } from '../shared/service/event/todo-action-event';
 import { HttpService } from '../shared/service/http/http.service';
 import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
 import { filter, throttleTime } from 'rxjs/operators';
+import { TodoFilterService } from '../shared/service/filter/todo-filter.service';
 
 @Component({
   selector: 'app-todos',
@@ -15,8 +16,9 @@ import { filter, throttleTime } from 'rxjs/operators';
 export class TodosComponent implements OnInit {
 
   todos = [];
+  todoFilterValue = '';
 
-  constructor(private httpService: HttpService, private eventService: EventService) { }
+  constructor(private httpService: HttpService, private eventService: EventService, private todoFilterService: TodoFilterService) { }
 
   ngOnInit() {
     this.refreshTodos();
@@ -24,6 +26,9 @@ export class TodosComponent implements OnInit {
     .pipe(filter(event => event.eventType === EventType.REFRESH))
     .pipe(throttleTime(3000))
     .subscribe(event => this.refreshTodos());
+
+    this.todoFilterService.todoFilter$
+    .subscribe(filterValue => this.todoFilterValue = filterValue);
   }
 
   refreshTodos() {

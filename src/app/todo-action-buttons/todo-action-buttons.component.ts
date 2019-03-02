@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../shared/service/event/event.service';
+import { TodoFilterService } from '../shared/service/filter/todo-filter.service';
 
 @Component({
   selector: 'app-todo-action-buttons',
@@ -8,7 +9,9 @@ import { EventService } from '../shared/service/event/event.service';
 })
 export class TodoActionButtonsComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  filterValue = '';
+
+  constructor(private eventService: EventService, private todoFilterService: TodoFilterService) { }
 
   ngOnInit() {
   }
@@ -20,4 +23,14 @@ export class TodoActionButtonsComponent implements OnInit {
   addTodo() {
     this.eventService.addTodo();
   }
+
+  filterTodos() {
+    this.todoFilterService.filter(this.filterValue);
+  }
+
+  clearFilter() {
+    this.filterValue = '';
+    this.filterTodos();
+  }
+
 }
