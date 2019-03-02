@@ -5,6 +5,7 @@ import { EventService } from '../shared/service/event/event.service';
 import { EventType } from '../shared/service/event/todo-action-event';
 import { HttpService } from '../shared/service/http/http.service';
 import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
+import { filter, throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todos',
@@ -19,17 +20,19 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
     this.refreshTodos();
-    this.eventService.events$.subscribe(event => {
-      switch (event.eventType) {
-            case EventType.REFRESH: this.refreshTodos(); break;
-        }
-    });
+    this.eventService.events$
+    .pipe(filter(event => event.eventType === EventType.REFRESH))
+    .pipe(throttleTime(3000))
+    .subscribe(event => this.refreshTodos());
   }
 
   refreshTodos() {
     this.httpService.getTodos().subscribe(
       todos => this.todos = map(todos, (value, prop) => ({ prop, value })),
-      error => console.log(error)
+      error => {
+        this.eventService.refreshTodosError();
+        console.log(error);
+      }
     );
   }
 
@@ -37,10 +40,16 @@ export class TodosComponent implements OnInit {
     this.eventService.selectTodo(todo);
   }
 
-  deleteTodo(id: string) {
+  deleteTodo(id: string, todo: Todo) {
     this.httpService.deleteTodo(id).subscribe(
-      response => this.refreshTodos(),
-      error => console.log(error)
+      response => {
+        this.eventService.deleteTodoSuccess(todo);
+        this.refreshTodos();
+      },
+      error => {
+        this.eventService.deleteTodoError(todo);
+        console.log(error);
+      }
     );
   }
 

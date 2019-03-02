@@ -14,7 +14,10 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
       </div>
-      <input required [disabled]="true" type="text" class="form-control" [(ngModel)]="todo.status" #status="ngModel">
+      <select class="custom-select" required [disabled]="!isInputMode()" [(ngModel)]="todo.status" #status="ngModel">
+          <option *ngFor="let s of statuses" [ngValue]="s">{{s}}</option>
+        </select>
+      <!-- <input required [disabled]="!isInputMode()" type="text" class="form-control" [(ngModel)]="todo.status" #status="ngModel"> -->
   </div>
   <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">

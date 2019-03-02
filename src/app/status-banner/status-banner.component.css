@@ -1,0 +1,17 @@
+.status {
+    border-radius: 10px;
+    padding: 10px
+}
+
+.success {
+    background-color: darkseagreen
+}
+
+.error {
+    background-color: indianred
+}
+
+.close-button {
+    cursor: pointer;
+    align-self: center;
+}

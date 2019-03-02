@@ -8,13 +8,15 @@ import { TodosComponent } from './todos/todos.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './shared/service/http/http.service';
 import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
+import { StatusBannerComponent } from './status-banner/status-banner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoComponent,
     TodosComponent,
-    TodoActionButtonsComponent
+    TodoActionButtonsComponent,
+    StatusBannerComponent
   ],
   imports: [
     BrowserModule,

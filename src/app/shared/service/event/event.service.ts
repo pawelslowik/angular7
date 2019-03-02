@@ -19,8 +19,24 @@ export class EventService {
     this.events.next(new TodoActionEvent(EventType.REFRESH));
   }
 
+  refreshTodosError() {
+    this.events.next(new TodoActionEvent(EventType.REFRESH_ERROR));
+  }
+
   addTodo() {
     this.events.next(new TodoActionEvent(EventType.ADD));
+  }
+
+  addTodoError(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.ADD_ERROR, todo));
+  }
+
+  addTodoSuccess(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.ADD_SUCCESS, todo));
+  }
+
+  addTodoCancel() {
+    this.events.next(new TodoActionEvent(EventType.ADD_CANCEL));
   }
 
   selectTodo(todo: Todo) {
@@ -29,5 +45,25 @@ export class EventService {
 
   editTodo(todo: Todo) {
     this.events.next(new TodoActionEvent(EventType.EDIT, todo));
+  }
+
+  editTodoCancel(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.EDIT_CANCEL, todo));
+  }
+
+  editTodoError(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.EDIT_ERROR, todo));
+  }
+
+  editTodoSuccess(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.EDIT_SUCCESS, todo));
+  }
+
+  deleteTodoError(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.DELETE_ERROR, todo));
+  }
+
+  deleteTodoSuccess(todo: Todo) {
+    this.events.next(new TodoActionEvent(EventType.DELETE_SUCCESS, todo));
   }
 }

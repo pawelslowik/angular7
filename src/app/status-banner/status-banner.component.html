@@ -1,0 +1,9 @@
+<div class="status" *ngIf="statusMessage" [ngClass]="{
+  'success': status === 'success',
+  'error': status === 'error'
+}">
+  <div class="row">
+      <div class=" col-md-10" >{{ statusMessage }}</div>
+      <div class="col-md-2 close-button fa fa-times" (click)="reset()"></div>
+  </div>
+</div>
