@@ -14,11 +14,11 @@ import { filter } from 'rxjs/operators';
 })
 export class TodoComponent implements OnInit {
 
-  todo: Todo;
-  statuses = ['not started', 'canceled', 'completed', 'started'];
-  private handledEvent: EventType;
+  readonly STATUSES = ['not started', 'canceled', 'completed', 'started'];
   private readonly SUPPORTED_EVENTS = [EventType.ADD, EventType.ADD_ERROR, EventType.EDIT,
     EventType.EDIT_ERROR, EventType.SELECT];
+  todo: Todo;
+  private handledEvent: EventType;
 
   constructor(private httpService: HttpService, private eventService: EventService) { }
 
