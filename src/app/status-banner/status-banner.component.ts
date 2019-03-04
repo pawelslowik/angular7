@@ -14,6 +14,7 @@ export class StatusBannerComponent implements OnInit {
   status = '';
   private readonly SUPPORTED_EVENTS = [EventType.ADD_SUCCESS, EventType.ADD_ERROR, EventType.EDIT_SUCCESS,
     EventType.EDIT_ERROR, EventType.DELETE_SUCCESS, EventType.DELETE_ERROR, EventType.REFRESH_ERROR];
+  private statusResetTimeout;
 
   constructor(private eventService: EventService) { }
 
@@ -30,6 +31,10 @@ export class StatusBannerComponent implements OnInit {
         case EventType.DELETE_ERROR: this.error(`Failed to delete todo "${event.payload.title}"`); break;
         case EventType.REFRESH_ERROR: this.error('Failed to load todos'); break;
       }
+      if (this.statusResetTimeout) {
+        clearTimeout(this.statusResetTimeout);
+      }
+      this.statusResetTimeout = setTimeout(() => this.reset(), 5000);
     });
   }
 
