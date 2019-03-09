@@ -1,26 +1,8 @@
 <div style="text-align:center">
-  <br>
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <hr>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-5">
-        <app-todo-action-buttons></app-todo-action-buttons>
-      </div>
-      <div class="col-md-7">
-        <app-status-banner></app-status-banner>
-      </div>
-    </div>
     <br>
-    <div class="row">
-      <div class="col-md-5">
-          <app-todos></app-todos>
-      </div>
-      <div class="col-md-7">
-          <app-todo></app-todo>
-      </div>
-    </div>
-  </div>
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <hr>
 </div>
+<router-outlet></router-outlet>

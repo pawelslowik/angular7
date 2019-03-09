@@ -1,31 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TodoComponent } from './todo/todo.component';
-import { TodosComponent } from './todos/todos.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpService } from './shared/service/http/http.service';
-import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
-import { StatusBannerComponent } from './status-banner/status-banner.component';
-import { TodoFilterPipe } from './shared/pipe/todo-filter.pipe';
+import { TodosPanelComponent } from './todos-panel/todos-panel.component';
+import { TodosPanelModule } from './todos-panel/todos-panel.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TodoComponent,
-    TodosComponent,
-    TodoActionButtonsComponent,
-    StatusBannerComponent,
-    TodoFilterPipe
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    TodosPanelModule,
+    RouterModule.forRoot([
+      {
+        path: 'todos',
+        component: TodosPanelComponent
+      },
+      {
+        path: 'admin',
+        loadChildren: './admin-panel/admin-panel.module#AdminPanelModule'
+      },
+      {
+        path: '',
+        redirectTo: '/todos',
+        pathMatch: 'full'
+      }
+    ])
   ],
-  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
