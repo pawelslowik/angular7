@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Todo } from '../shared/model/todo';
+import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
 import { EventService } from '../shared/service/event/event.service';
 import { EventType } from '../shared/service/event/todo-action-event';
 import { HttpService } from '../shared/service/http/http.service';
-import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { StatusService } from '../shared/service/status/status.service';
+import { map } from 'lodash';
 
 @Component({
   selector: 'app-todo',
@@ -14,13 +16,14 @@ import { filter } from 'rxjs/operators';
 })
 export class TodoComponent implements OnInit {
 
-  readonly STATUSES = ['not started', 'canceled', 'completed', 'started'];
+  statuses = [];
   private readonly SUPPORTED_EVENTS = [EventType.ADD, EventType.ADD_ERROR, EventType.EDIT,
     EventType.EDIT_ERROR, EventType.SELECT];
   todo: Todo;
   private handledEvent: EventType;
 
-  constructor(private httpService: HttpService, private eventService: EventService) { }
+  constructor(private httpService: HttpService, private eventService: EventService,
+              private statusService: StatusService) { }
 
   ngOnInit() {
     this.eventService.events$
@@ -30,6 +33,7 @@ export class TodoComponent implements OnInit {
         case EventType.ADD:
           this.handledEvent = event.eventType;
           this.todo = new Todo();
+          this.refreshStatusNames();
           break;
         case EventType.SELECT:
           if (this.handledEvent === EventType.ADD || this.handledEvent === EventType.EDIT) {
@@ -37,6 +41,9 @@ export class TodoComponent implements OnInit {
           }
           this.handledEvent = event.eventType;
           this.todo = event.payload;
+          if (this.todo) {
+            this.refreshStatusNames();
+          }
           break;
         case EventType.EDIT:
           this.handledEvent = event.eventType;
@@ -92,5 +99,13 @@ export class TodoComponent implements OnInit {
         console.log(error.statusText);
       }
     );
+  }
+
+  getStatusColor(status: string) {
+    return this.statusService.getStatusColor(status);
+  }
+
+  refreshStatusNames() {
+    this.statuses = map(this.statusService.getStatuses(), status => status.name);
   }
 }

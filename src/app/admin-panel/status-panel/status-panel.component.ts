@@ -6,8 +6,7 @@ import { map } from 'lodash';
 @Component({
   selector: 'app-status-panel',
   templateUrl: './status-panel.component.html',
-  styleUrls: ['./status-panel.component.css'],
-  providers: [HttpService]
+  styleUrls: ['./status-panel.component.css']
 })
 export class StatusPanelComponent implements OnInit {
 

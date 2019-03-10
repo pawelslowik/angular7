@@ -1,13 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { map, chain, find } from 'lodash';
+import { Component, OnInit } from '@angular/core';
+import { map } from 'lodash';
+import { filter, throttleTime } from 'rxjs/operators';
 import { Todo } from '../shared/model/todo';
+import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
 import { EventService } from '../shared/service/event/event.service';
 import { EventType } from '../shared/service/event/todo-action-event';
-import { HttpService } from '../shared/service/http/http.service';
-import { TodoIdWrapper } from '../shared/model/todo-id-wrapper';
-import { filter, throttleTime } from 'rxjs/operators';
 import { TodoFilterService } from '../shared/service/filter/todo-filter.service';
-import { Status } from '../shared/model/status';
+import { HttpService } from '../shared/service/http/http.service';
+import { StatusService } from '../shared/service/status/status.service';
 
 @Component({
   selector: 'app-todos',
@@ -19,9 +19,9 @@ export class TodosComponent implements OnInit {
 
   todos = [];
   todoFilterValue = '';
-  statuses: Status[] = [];
 
-  constructor(private httpService: HttpService, private eventService: EventService, private todoFilterService: TodoFilterService) { }
+  constructor(private httpService: HttpService, private eventService: EventService,
+              private todoFilterService: TodoFilterService, private statusService: StatusService) { }
 
   ngOnInit() {
     this.refreshTodos();
@@ -36,13 +36,7 @@ export class TodosComponent implements OnInit {
 
   refreshTodos() {
     this.httpService.getTodos().subscribe(
-      todos => {
-        this.todos = map(todos, (value, prop) => ({ prop, value }));
-        this.httpService.getStatuses().subscribe(
-          statuses => this.statuses = statuses,
-          error => console.log(error)
-        );
-      },
+      todos => this.todos = map(todos, (value, prop) => ({ prop, value })),
       error => {
         this.eventService.refreshTodosError();
         console.log(error);
@@ -72,19 +66,6 @@ export class TodosComponent implements OnInit {
   }
 
   getStatusColor(status: string) {
-    const matchedStatus: Status = find(this.statuses, s => s.name === status, 0);
-    return matchedStatus ? matchedStatus.color : this.getDefaultStatusColor(status);
-  }
-
-  private getDefaultStatusColor(status: string) {
-    let color;
-    switch (status) {
-      case 'canceled': color = 'lightcoral'; break;
-      case 'started': color = 'yellow'; break;
-      case 'completed': color = 'mediumseagreen'; break;
-      case 'not started':
-      default: color = 'lightblue'; break;
-    }
-    return color;
+    return this.statusService.getStatusColor(status);
   }
 }

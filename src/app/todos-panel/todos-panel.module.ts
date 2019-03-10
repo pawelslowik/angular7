@@ -26,7 +26,6 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     TodosPanelComponent
-  ],
-  providers: [HttpService],
+  ]
 })
 export class TodosPanelModule { }

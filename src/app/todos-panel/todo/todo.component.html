@@ -1,9 +1,4 @@
-<div *ngIf="todo" class="todo" [ngClass]="{
-  'todo-not-started': (! todo.status || todo.status === 'not started'),
-  'todo-canceled': todo.status === 'canceled',
-  'todo-completed': todo.status === 'completed',
-  'todo-started': todo.status === 'started'
-}">
+<div *ngIf="todo" class="todo" [ngStyle]="{'border-color' : getStatusColor(todo.status)}">
   <div class="input-group input-group-sm mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
@@ -15,7 +10,7 @@
         <span class="input-group-text" id="inputGroup-sizing-sm">Status</span>
       </div>
       <select class="custom-select" required [disabled]="!isInputMode()" [(ngModel)]="todo.status" #status="ngModel">
-          <option *ngFor="let s of STATUSES" [ngValue]="s">{{s}}</option>
+          <option *ngFor="let s of statuses" [ngValue]="s">{{s}}</option>
         </select>
   </div>
   <div class="input-group input-group-sm mb-3">
