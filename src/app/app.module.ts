@@ -9,7 +9,7 @@ import { TodosPanelModule } from './todos-panel/todos-panel.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

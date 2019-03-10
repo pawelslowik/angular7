@@ -2,22 +2,6 @@ th, tr {
     text-align: center
 }
 
-.todo-canceled {
-    background-color:lightcoral
-}
-
-.todo-not-started {
-    background-color: lightblue
-}
-
-.todo-started {
-    background-color: yellow
-}
-
-.todo-completed {
-    background-color: mediumseagreen
-}
-
 .action-icon {
     cursor: pointer;
     margin-right: 10px;

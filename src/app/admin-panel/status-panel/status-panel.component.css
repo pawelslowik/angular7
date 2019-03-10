@@ -1,0 +1,22 @@
+.status-panel {
+    border-color: dodgerblue;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    border-style: solid;
+    text-align: center
+}
+
+.status-action-button {
+    margin: 5px;
+    margin-right: 0px;
+}
+
+.action-icon {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.action-icon-disabled {
+    display: none;
+}
