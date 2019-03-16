@@ -6,7 +6,6 @@ import { TodosComponent } from './todos/todos.component';
 import { TodoActionButtonsComponent } from './todo-action-buttons/todo-action-buttons.component';
 import { StatusBannerComponent } from './status-banner/status-banner.component';
 import { TodoFilterPipe } from './shared/pipe/todo-filter.pipe';
-import { HttpService } from './shared/service/http/http.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 

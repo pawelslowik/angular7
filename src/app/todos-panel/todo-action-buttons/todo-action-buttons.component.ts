@@ -32,5 +32,4 @@ export class TodoActionButtonsComponent implements OnInit {
     this.filterValue = '';
     this.filterTodos();
   }
-
 }

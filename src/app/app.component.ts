@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DummyAuthService } from './auth/shared/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular Todo App';
+
+  constructor(private authService: DummyAuthService) {}
+
+
 }
+
+
